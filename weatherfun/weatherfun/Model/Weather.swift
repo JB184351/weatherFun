@@ -1,94 +1,71 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
 //
-//  OneLocation.swift
-//  weatherfun
-//
-//  Created by Justin Bengtson on 9/6/21.
-//
+//   let weather = try? newJSONDecoder().decode(Weather.self, from: jsonData)
 
 import Foundation
 
+// MARK: - Weather
 struct Weather: Codable {
-    var coordinates: Coordinates
-    var weather: [WeatherDescription]
-    var base: String
-    var main: Main
-    var visibility: Int
-    var wind: Wind
-    var clouds: Clouds
-    var dt: Int
-    var system: System?
-    var timezone: Int
-    var id: Int
-    var name: String
-    var cod: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case coordinates = "coord"
-        case weather
-        case base
-        case main
-        case visibility
-        case wind
-        case clouds
-        case dt
-        case system = "sys"
-        case timezone
-        case id
-        case name
-        case cod
-    }
+    let coord: Coord?
+    let weather: [WeatherElement]?
+    let base: String?
+    let main: Main?
+    let visibility: Int?
+    let wind: Wind?
+    let clouds: Clouds?
+    let dt: Int?
+    let sys: Sys?
+    let timezone, id: Int?
+    let name: String?
+    let cod: Int?
 }
 
-struct Coordinates: Codable {
-    var longitude: Float
-    var latitude: Float
-    
-    enum CodingKeys: String, CodingKey {
-        case longitude = "lon"
-        case latitude = "lat"
-    }
+// MARK: - Clouds
+struct Clouds: Codable {
+    let all: Int?
 }
 
-struct WeatherDescription: Codable {
-    var id: Int
-    var main: String
-    var description: String
-    var icon: String
+// MARK: - Coord
+struct Coord: Codable {
+    let lon, lat: Double?
 }
 
+// MARK: - Main
 struct Main: Codable {
-    var temp: Float
-    var feelsLike: Int?
-    var minTemp: Float
-    var maxTemp: Float
-    var pressure: Int
-    var humidity: Int
-    
-    enum Codingkeys: String, CodingKey {
+    let temp, feelsLike, tempMin, tempMax: Double?
+    let pressure, humidity: Int?
+
+    enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
-        case minTemp = "temp_min"
-        case maxTemp = "temp_max"
-        case pressure
-        case humidity
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure, humidity
     }
 }
 
+// MARK: - Sys
+struct Sys: Codable {
+    let type, id: Int?
+    let country: String?
+    let sunrise, sunset: Int?
+}
+
+// MARK: - WeatherElement
+struct WeatherElement: Codable {
+    let id: Int?
+    let main, weatherDescription, icon: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, main
+        case weatherDescription = "description"
+        case icon
+    }
+}
+
+// MARK: - Wind
 struct Wind: Codable {
-    var speed: Float
-    var deg: Int
+    let speed: Double?
+    let deg: Int?
 }
-
-struct Clouds: Codable {
-    var all: Int
-}
-
-struct System: Codable {
-    var type: Int
-    var id: Int
-    var country: String
-    var sunrise: Int
-    var susnet: Int
-}
-
-
