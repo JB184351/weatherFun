@@ -8,7 +8,7 @@
 import Foundation
 
 struct Weather: Codable {
-    var coordinates: Coordinates?
+    var coordinates: Coordinates
     var weather: [WeatherDescription]
     var base: String
     var main: Main
@@ -21,11 +21,32 @@ struct Weather: Codable {
     var id: Int
     var name: String
     var cod: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case coordinates = "coord"
+        case weather
+        case base
+        case main
+        case visibility
+        case wind
+        case clouds
+        case dt
+        case system = "sys"
+        case timezone
+        case id
+        case name
+        case cod
+    }
 }
 
 struct Coordinates: Codable {
     var longitude: Float
     var latitude: Float
+    
+    enum CodingKeys: String, CodingKey {
+        case longitude = "lon"
+        case latitude = "lat"
+    }
 }
 
 struct WeatherDescription: Codable {
@@ -37,11 +58,20 @@ struct WeatherDescription: Codable {
 
 struct Main: Codable {
     var temp: Float
-    var feelsLike: Float?
-    var minTemp: Float?
-    var maxTemp: Float?
+    var feelsLike: Int?
+    var minTemp: Float
+    var maxTemp: Float
     var pressure: Int
     var humidity: Int
+    
+    enum Codingkeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case minTemp = "temp_min"
+        case maxTemp = "temp_max"
+        case pressure
+        case humidity
+    }
 }
 
 struct Wind: Codable {
