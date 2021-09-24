@@ -1,71 +1,98 @@
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
 //
-//   let weather = try? newJSONDecoder().decode(Weather.self, from: jsonData)
+//  OneLocation.swift
+//  weatherfun
+//
+//  Created by Justin Bengtson on 9/6/21.
+//
 
 import Foundation
 
-// MARK: - Weather
 struct Weather: Codable {
-    let coord: Coord?
-    let weather: [WeatherElement]?
-    let base: String?
-    let main: Main?
-    let visibility: Int?
-    let wind: Wind?
-    let clouds: Clouds?
-    let dt: Int?
-    let sys: Sys?
-    let timezone, id: Int?
-    let name: String?
-    let cod: Int?
+    let coordinates: Coordinates
+    let weather: [WeatherElement]
+    let base: String
+    let main: Main
+    let visibility: Int
+    let wind: Wind
+    let clouds: Clouds
+    let dt: Int
+    let system: System
+    let timezone, id: Int
+    let name: String
+    let cod: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case coordinates = "coord"
+        case weather
+        case base
+        case main
+        case visibility
+        case wind
+        case clouds
+        case dt
+        case system = "sys"
+        case timezone
+        case id
+        case name
+        case cod
+    }
 }
 
 // MARK: - Clouds
 struct Clouds: Codable {
-    let all: Int?
+    let all: Int
 }
 
 // MARK: - Coord
-struct Coord: Codable {
-    let lon, lat: Double?
+struct Coordinates: Codable {
+    let lon: Double
+    let lat: Double
 }
 
 // MARK: - Main
 struct Main: Codable {
-    let temp, feelsLike, tempMin, tempMax: Double?
-    let pressure, humidity: Int?
+    let temp: Double
+    let feelsLike: Double
+    let tempMin:Double
+    let tempMax: Double
+    let pressure: Int
+    let humidity: Int
 
     enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
         case tempMin = "temp_min"
         case tempMax = "temp_max"
-        case pressure, humidity
+        case pressure
+        case humidity
     }
 }
 
 // MARK: - Sys
-struct Sys: Codable {
-    let type, id: Int?
-    let country: String?
-    let sunrise, sunset: Int?
+struct System: Codable {
+    let type: Int
+    let id: Int
+    let country: String
+    let sunrise: Int
+    let sunset: Int
 }
 
 // MARK: - WeatherElement
 struct WeatherElement: Codable {
-    let id: Int?
-    let main, weatherDescription, icon: String?
+    let id: Int
+    let main: String
+    let weatherDescription: String
+    let icon: String
 
     enum CodingKeys: String, CodingKey {
-        case id, main
+        case id
+        case main
         case weatherDescription = "description"
         case icon
     }
 }
 
-// MARK: - Wind
 struct Wind: Codable {
-    let speed: Double?
-    let deg: Int?
+    let speed: Double
+    let deg: Int
 }
