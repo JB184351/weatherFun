@@ -15,6 +15,12 @@ class WeatherAPI {
         }
     }
     
+    public static func getWeatherForCurrentUserLocation(currentUserLocation: String, completionBlock: @escaping (Weather) -> (Void)) {
+        load(with: .oneLocation, and: .createURL(with: .oneLocation, location: currentUserLocation)!) { weatherForCurrentUserLocation in
+            completionBlock(weatherForCurrentUserLocation)
+        }
+    }
+    
     private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (Weather) -> (Void)) {
         if let url = endPointURL.url {
             URLSession.shared.dataTask(with: url) { data, response, error in

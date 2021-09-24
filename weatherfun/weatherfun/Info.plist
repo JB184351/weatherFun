@@ -14,6 +14,12 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location used to find the current weather in your area</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location used to find the current weather in your area</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location Needed to find the current weather in your area</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
