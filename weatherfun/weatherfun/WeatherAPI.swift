@@ -15,9 +15,13 @@ class WeatherAPI {
         }
     }
     
-    public static func getWeatherForCurrentUserLocation(currentUserLocation: String, completionBlock: @escaping (Weather) -> (Void)) {
-        load(with: .oneLocation, and: .createURL(with: .oneLocation, location: currentUserLocation)!) { weatherForCurrentUserLocation in
-            completionBlock(weatherForCurrentUserLocation)
+    public static func getWeatherForCurrentUserLocation(completionBlock: @escaping (Weather) -> (Void)) {
+        LocationManager.shared.getUserLocation { userLocation in
+            LocationManager.shared.resolveLocationName(with: userLocation) { locationName in
+                load(with: .oneLocation, and: .createURL(with: .oneLocation, location: locationName!)!) { weatherForCurrentUserLocation in
+                    completionBlock(weatherForCurrentUserLocation)
+                }
+            }
         }
     }
     

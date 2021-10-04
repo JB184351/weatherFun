@@ -27,7 +27,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         
         geoCoder.reverseGeocodeLocation(location) { placemarks, error in
             guard let place = placemarks?.first, error == nil else {
-//                completion()
+                self.completion?(location)
                 return
             }
             
