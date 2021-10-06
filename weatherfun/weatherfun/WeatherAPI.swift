@@ -9,18 +9,10 @@ import Foundation
 
 class WeatherAPI {
     
-    public static func getWeatherForOneLocation(completionBlock: @escaping (Weather) -> (Void)) {
-        load(with: .oneLocation, and: .createURL(with: .oneLocation)!) { weatherForOneLocaation in
-            completionBlock(weatherForOneLocaation)
-        }
-    }
-    
     public static func getWeatherForCurrentUserLocation(completionBlock: @escaping (Weather) -> (Void)) {
-        LocationManager.shared.getUserLocation { userLocation in
-            LocationManager.shared.resolveLocationName(with: userLocation) { locationName in
-                load(with: .oneLocation, and: .createURL(with: .oneLocation, location: locationName!)!) { weatherForCurrentUserLocation in
-                    completionBlock(weatherForCurrentUserLocation)
-                }
+        LocationManager.shared.getUserLocation { locationName in
+            load(with: .oneLocation, and: .createURL(with: .oneLocation, location: locationName!)!) { weatherForCurrentUserLocation in
+                completionBlock(weatherForCurrentUserLocation)
             }
         }
     }

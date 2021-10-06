@@ -24,6 +24,7 @@ struct WeatherURL {
         return components.url
     }
     
+    // Gave the location parmater a default locattion name
     static func createURL(with endPoint: EndPoint, location: String = "Las Vegas")  -> WeatherURL? {
         guard let privateKey = Bundle.main.infoDictionary?["API_KEY"] as? String else { return nil }
         

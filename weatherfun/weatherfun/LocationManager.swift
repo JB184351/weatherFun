@@ -8,26 +8,25 @@
 import Foundation
 import CoreLocation
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject {
     static let shared = LocationManager()
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
+    private var completion: ((String?) -> Void)?
     
-    var completion: ((CLLocation) -> Void)?
-    
-    public func getUserLocation(completion: @escaping (CLLocation) -> (Void)) {
+    public func getUserLocation(completion: @escaping (String?) -> (Void)) {
         self.completion = completion
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
     
-    public func resolveLocationName(with location: CLLocation, completionHandler: @escaping (String?) -> Void) {
+    private func resolveLocationName(with location: CLLocation, completionHandler: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
         
         geoCoder.reverseGeocodeLocation(location) { placemarks, error in
             guard let place = placemarks?.first, error == nil else {
-                self.completion?(location)
+                completionHandler(nil)
                 return
             }
             
@@ -40,10 +39,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             completionHandler(locationName)
         }
     }
+}
+
+extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let firstLocation = locations.first else { return }
-        completion?(firstLocation)
+        guard let firstLocation = locations.first, let completion = self.completion else { return }
+        resolveLocationName(with: firstLocation, completionHandler: completion)
         manager.stopUpdatingLocation()
     }
 }
