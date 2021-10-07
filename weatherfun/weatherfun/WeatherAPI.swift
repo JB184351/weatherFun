@@ -11,7 +11,7 @@ class WeatherAPI {
     
     public static func getWeatherForCurrentUserLocation(completionBlock: @escaping (Weather) -> (Void)) {
         LocationManager.shared.getUserLocation { locationName in
-            load(with: .oneLocation, and: .createURL(with: .oneLocation, location: locationName!)!) { weatherForCurrentUserLocation in
+            load(with: .oneLocation, and: .createURL(with: .oneLocation, location: locationName!, coordinates: nil)!) { weatherForCurrentUserLocation in
                 completionBlock(weatherForCurrentUserLocation)
             }
         }
@@ -25,6 +25,9 @@ class WeatherAPI {
                     do {
                         switch endPoint {
                         case .oneLocation:
+                            let parsedJSON = try jsonDecoder.decode(Weather.self, from: data)
+                            completionBlock(parsedJSON)
+                        case .coordinates:
                             let parsedJSON = try jsonDecoder.decode(Weather.self, from: data)
                             completionBlock(parsedJSON)
                         }

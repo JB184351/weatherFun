@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import CoreLocation
 
 enum EndPoint {
     case oneLocation
+    case coordinates
 }
 
 struct WeatherURL {
@@ -25,7 +27,7 @@ struct WeatherURL {
     }
     
     // Gave the location parmater a default locattion name
-    static func createURL(with endPoint: EndPoint, location: String = "Las Vegas")  -> WeatherURL? {
+    static func createURL(with endPoint: EndPoint, location: String? = "Las Vegas", coordinates: [String]?)  -> WeatherURL? {
         guard let privateKey = Bundle.main.infoDictionary?["API_KEY"] as? String else { return nil }
         
         var cleanedPrivateKey = privateKey
@@ -34,12 +36,25 @@ struct WeatherURL {
             char == "\""
         }
         
-        let apiKeyQueryItem = URLQueryItem(name: "appid", value: cleanedPrivateKey)
+        var queryItems = [URLQueryItem]()
         
         switch endPoint {
         case .oneLocation:
-            return WeatherURL(queryItems: [URLQueryItem(name: "q", value: location), apiKeyQueryItem])
+            queryItems.append(URLQueryItem(name: "q", value: location))
+        case .coordinates:
+            queryItems = [URLQueryItem(name: "lat", value: coordinates!.first), URLQueryItem(name: "lon", value: coordinates!.last)]
         }
+        
+        let apiKeyQueryItem = URLQueryItem(name: "appid", value: cleanedPrivateKey)
+        queryItems.append(apiKeyQueryItem)
+        
+        switch endPoint {
+        case .oneLocation:
+            return WeatherURL(queryItems: queryItems)
+        case .coordinates:
+            return WeatherURL(queryItems: queryItems)
+        }
+        
     }
     
 }
