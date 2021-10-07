@@ -24,7 +24,8 @@ struct WeatherURL {
         return components.url
     }
     
-   static func createURL(with endPoint: EndPoint)  -> WeatherURL? {
+    // Gave the location parmater a default locattion name
+    static func createURL(with endPoint: EndPoint, location: String = "Las Vegas")  -> WeatherURL? {
         guard let privateKey = Bundle.main.infoDictionary?["API_KEY"] as? String else { return nil }
         
         var cleanedPrivateKey = privateKey
@@ -37,7 +38,7 @@ struct WeatherURL {
         
         switch endPoint {
         case .oneLocation:
-            return WeatherURL(queryItems: [URLQueryItem(name: "q", value: "Las Vegas"), apiKeyQueryItem])
+            return WeatherURL(queryItems: [URLQueryItem(name: "q", value: location), apiKeyQueryItem])
         }
     }
     
