@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301633F72712782F007DA3F1 /* CompletionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301633F62712782F007DA3F1 /* CompletionProtocol.swift */; };
 		303352CA26E97E830068CDEF /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303352C926E97E830068CDEF /* WeatherAPI.swift */; };
 		308E8D9426FD66B700D2AB7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E8D9326FD66B700D2AB7B /* LocationManager.swift */; };
 		30C68EC226E6A92600D41391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C68EC126E6A92600D41391 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301633F62712782F007DA3F1 /* CompletionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionProtocol.swift; sourceTree = "<group>"; };
 		303352C926E97E830068CDEF /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		308E8D9326FD66B700D2AB7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		30C68EBE26E6A92600D41391 /* weatherfun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherfun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +76,7 @@
 				30C68EC526E6A92600D41391 /* ViewController.swift */,
 				308E8D9326FD66B700D2AB7B /* LocationManager.swift */,
 				30C68ED726E6B7D700D41391 /* EndPoint.swift */,
+				301633F62712782F007DA3F1 /* CompletionProtocol.swift */,
 				30C68EDB26E6BF5600D41391 /* WeatherType.swift */,
 				303352C926E97E830068CDEF /* WeatherAPI.swift */,
 				30C68EC726E6A92600D41391 /* Main.storyboard */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30C68EC626E6A92600D41391 /* ViewController.swift in Sources */,
+				301633F72712782F007DA3F1 /* CompletionProtocol.swift in Sources */,
 				303352CA26E97E830068CDEF /* WeatherAPI.swift in Sources */,
 				30C68EC226E6A92600D41391 /* AppDelegate.swift in Sources */,
 				30C68ED826E6B7D700D41391 /* EndPoint.swift in Sources */,
