@@ -44,11 +44,3 @@ extension LocationManager: CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
     }
 }
-
-extension String: Completion {
-    
-}
-
-extension CLPlacemark: Completion {
-    
-}
