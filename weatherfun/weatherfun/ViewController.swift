@@ -16,9 +16,9 @@ class ViewController: UIViewController {
             print(weatherForCurrentLocation)
         }
         
-//        WeatherAPI.getWeatherForCurrentUerLocationWithCoordinates { weatherForCurrentLocation in
-//            print(weatherForCurrentLocation)
-//        }
+        WeatherAPI.getWeatherForCurrentUerLocationWithCoordinates { weatherForCurrentLocation in
+            print(weatherForCurrentLocation)
+        }
     }
     
 }
