@@ -12,16 +12,16 @@ class LocationManager: NSObject {
     static let shared = LocationManager()
     
     private let locationManager = CLLocationManager()
-    private var completion: ((String?) -> Void)?
+    private var completion: ((CLPlacemark?) -> Void)?
     
-    public func getUserLocation(completion: @escaping (String?) -> (Void)) {
+    public func getUserLocation(completion: @escaping (CLPlacemark?) -> (Void)) {
         self.completion = completion
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
     
-    private func resolveLocationName(with location: CLLocation, completionHandler: @escaping (String?) -> Void) {
+    private func resolveLocationName(with location: CLLocation, completionHandler: @escaping (CLPlacemark?) -> Void) {
         let geoCoder = CLGeocoder()
         
         geoCoder.reverseGeocodeLocation(location) { placemarks, error in
@@ -30,13 +30,8 @@ class LocationManager: NSObject {
                 return
             }
             
-            var locationName = ""
+            completionHandler(place)
             
-            if let locality = place.locality {
-                locationName = locality
-            }
-            
-            completionHandler(locationName)
         }
     }
 }
