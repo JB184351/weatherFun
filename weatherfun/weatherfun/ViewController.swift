@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        weatherLocations.removeAll()
         addToWeatherArray()
         setUpCollectionView()
         registerCells()
@@ -26,13 +26,49 @@ class ViewController: UIViewController {
     }
     
     private func setUpCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .red
         self.view.addSubview(collectionView)
         setupConstraints()
+    }
+    
+    func generateLayout() -> UICollectionViewLayout {
+        let fullItem = NSCollectionLayoutItem(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(2/3)))
+
+        fullItem.contentInsets = NSDirectionalEdgeInsets(
+          top: 2,
+          leading: 2,
+          bottom: 2,
+          trailing: 2)
+        
+        let doubleItem = NSCollectionLayoutItem(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1/2),
+            heightDimension: .fractionalHeight(1.0)))
+
+        doubleItem.contentInsets = NSDirectionalEdgeInsets(
+          top: 2,
+          leading: 2,
+          bottom: 2,
+          trailing: 2)
+        
+        let doubleGroup = NSCollectionLayoutGroup.horizontal(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(1/2)),
+          subitems: [doubleItem, doubleItem])
+        
+        let nestedGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(5/3)), subitems: [fullItem, doubleGroup])
+        
+        let section = NSCollectionLayoutSection(group: nestedGroup)
+
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
     }
     
     private func setupConstraints() {
@@ -46,6 +82,8 @@ class ViewController: UIViewController {
     
     private func addToWeatherArray() {
         WeatherAPI.getWeatherForCurrentUserLocation { weatherForCurrentLocation in
+            self.weatherLocations.append(weatherForCurrentLocation)
+            self.weatherLocations.append(weatherForCurrentLocation)
             self.weatherLocations.append(weatherForCurrentLocation)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -76,10 +114,6 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
-    
-}
-
-extension ViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
