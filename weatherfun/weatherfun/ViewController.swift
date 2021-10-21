@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         setupConstraints()
     }
     
-    func generateLayout() -> UICollectionViewLayout {
+    private func generateLayout() -> UICollectionViewLayout {
         let fullItem = NSCollectionLayoutItem(
           layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
