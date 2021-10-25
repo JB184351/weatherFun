@@ -10,7 +10,7 @@ import CoreLocation
 
 class WeatherAPI {
     
-    public static func getWeatherForCurrentUserLocation(completionBlock: @escaping (Weather) -> (Void)) {
+    public static func getWeatherForCurrentUserLocation(completionBlock: @escaping (WeatherProtocol) -> (Void)) {
         LocationManager.shared.getUserLocation { location in
             if let locationName = location?.locality {
                 load(with: .oneLocation, and: .createURL(with: .oneLocation, location: (locationName), coordinates: nil)!) { weatherForCurrentUserLocation in
@@ -20,7 +20,7 @@ class WeatherAPI {
         }
     }
     
-    public static func getWeatherForCurrentUerLocationWithCoordinates(completionBlock: @escaping (Weather) -> (Void)) {
+    public static func getWeatherForCurrentUerLocationWithCoordinates(completionBlock: @escaping (WeatherProtocol) -> (Void)) {
         LocationManager.shared.getUserLocation { location in
             let latitudeText = String(format: "%f", location?.location?.coordinate.latitude as! CVarArg)
             let longitudeText = String(format: "%f", location?.location?.coordinate.longitude as! CVarArg)
@@ -31,7 +31,7 @@ class WeatherAPI {
         }
     }
     
-    private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (Weather) -> (Void)) {
+    private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (WeatherProtocol) -> (Void)) {
         if let url = endPointURL.url {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
@@ -43,6 +43,9 @@ class WeatherAPI {
                             completionBlock(parsedJSON)
                         case .coordinates:
                             let parsedJSON = try jsonDecoder.decode(Weather.self, from: data)
+                            completionBlock(parsedJSON)
+                        case .daily:
+                            let parsedJSON = try jsonDecoder.decode(WeatherForecast.self, from: data)
                             completionBlock(parsedJSON)
                         }
                     } catch {

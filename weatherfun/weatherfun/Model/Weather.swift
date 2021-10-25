@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Weather: Codable {
+struct Weather: Codable, WeatherProtocol {
     let coordinates: Coordinates
     let weather: [WeatherElement]
     let base: String
@@ -17,7 +17,8 @@ struct Weather: Codable {
     let clouds: Clouds
     let dt: Int
     let system: System
-    let timezone, id: Int
+    let timezone: Int
+    let id: Int
     let name: String
     let cod: Int
     

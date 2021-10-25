@@ -46,7 +46,8 @@ class WeatherCell: UICollectionViewCell {
         locationNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
     }
     
-    public func setup(with model: Weather) {
+    public func setup(with model: WeatherProtocol) {
+        let model = model as! Weather
         locationNameLabel.text = model.name
     }
     

@@ -11,6 +11,7 @@ import CoreLocation
 enum EndPoint {
     case oneLocation
     case coordinates
+    case daily
 }
 
 struct WeatherURL {
@@ -43,6 +44,11 @@ struct WeatherURL {
             queryItems.append(URLQueryItem(name: "q", value: location))
         case .coordinates:
             queryItems = [URLQueryItem(name: "lat", value: coordinates!.first), URLQueryItem(name: "lon", value: coordinates!.last)]
+        case .daily:
+            queryItems.append(URLQueryItem(name: "onecall", value: "onecall"))
+            queryItems.append(URLQueryItem(name: "lat", value: coordinates!.first))
+            queryItems.append(URLQueryItem(name: "lon", value: coordinates!.last))
+            queryItems.append(URLQueryItem(name: "exclude", value: "current,minutely,hourly,alerts"))
         }
         
         let apiKeyQueryItem = URLQueryItem(name: "appid", value: cleanedPrivateKey)
@@ -52,6 +58,8 @@ struct WeatherURL {
         case .oneLocation:
             return WeatherURL(queryItems: queryItems)
         case .coordinates:
+            return WeatherURL(queryItems: queryItems)
+        case .daily:
             return WeatherURL(queryItems: queryItems)
         }
         
