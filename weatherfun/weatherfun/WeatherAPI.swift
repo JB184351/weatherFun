@@ -31,6 +31,17 @@ class WeatherAPI {
         }
     }
     
+    public static func getWeatherForecastForCurrentUserLocation(completionBlock: @escaping (WeatherProtocol) -> (Void)) {
+        LocationManager.shared.getUserLocation { location in
+            let latitudeText = String(format: "%f", location?.location?.coordinate.latitude as! CVarArg)
+            let longitudeText = String(format: "%f", location?.location?.coordinate.longitude as! CVarArg)
+            
+            load(with: .daily, and: .createURL(with: .daily, coordinates: [latitudeText, longitudeText])!) { weatherForoCurrentUserLocation in
+                completionBlock(weatherForoCurrentUserLocation)
+            }
+        }
+    }
+    
     private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (WeatherProtocol) -> (Void)) {
         if let url = endPointURL.url {
             URLSession.shared.dataTask(with: url) { data, response, error in

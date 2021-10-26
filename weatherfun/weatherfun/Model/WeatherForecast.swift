@@ -30,7 +30,7 @@ struct Daily: Codable {
     let dewPoint, windSpeed: Double
     let windDeg: Int
     let windGust: Double
-    let weather: [Weather]
+    let weather: [WeatherElement]
     let clouds: Int
     let pop, uvi: Double
     let rain: Double?

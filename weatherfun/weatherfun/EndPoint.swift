@@ -21,7 +21,9 @@ struct WeatherURL {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.openweathermap.org"
-        components.path = "/data/2.5/weather"
+        
+        //TODO: Configure path to handle different enpoints when constructing the URL
+        components.path = "/data/2.5/onecall"
         components.queryItems = queryItems
         
         return components.url
@@ -45,7 +47,6 @@ struct WeatherURL {
         case .coordinates:
             queryItems = [URLQueryItem(name: "lat", value: coordinates!.first), URLQueryItem(name: "lon", value: coordinates!.last)]
         case .daily:
-            queryItems.append(URLQueryItem(name: "onecall", value: "onecall"))
             queryItems.append(URLQueryItem(name: "lat", value: coordinates!.first))
             queryItems.append(URLQueryItem(name: "lon", value: coordinates!.last))
             queryItems.append(URLQueryItem(name: "exclude", value: "current,minutely,hourly,alerts"))
