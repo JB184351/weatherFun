@@ -49,6 +49,7 @@ struct WeatherURL {
         case .daily:
             queryItems.append(URLQueryItem(name: "lat", value: coordinates!.first))
             queryItems.append(URLQueryItem(name: "lon", value: coordinates!.last))
+            queryItems.append(URLQueryItem(name: "units", value: "imperial"))
             queryItems.append(URLQueryItem(name: "exclude", value: "current,minutely,hourly,alerts"))
         }
         

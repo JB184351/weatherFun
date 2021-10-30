@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
-    var weatherLocations = [WeatherProtocol]()
+    private var weatherLocations = [WeatherProtocol]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,12 +9,17 @@ import UIKit
 
 class WeatherForecastCell: UICollectionViewCell {
     
-    var weatherLocationNameLabel = UILabel()
-    var weatherLocationDailyTempLabel = UILabel()
+//    private var weatherLocationNameLabel = UILabel()
+//    private var weatherLocationDailyTempLabel = UILabel()
+    private var collectionView: UICollectionView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        registerCells()
     }
     
     required init?(coder: NSCoder) {
@@ -22,39 +27,52 @@ class WeatherForecastCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        weatherLocationNameLabel.textColor = .black
-        weatherLocationNameLabel.font = .systemFont(ofSize: 17)
-        weatherLocationNameLabel.textAlignment = .left
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .green
         
-        weatherLocationDailyTempLabel.textColor = .black
-        weatherLocationDailyTempLabel.font = .systemFont(ofSize: 17)
-        weatherLocationDailyTempLabel.textAlignment = .left
-        
-        self.addSubview(weatherLocationNameLabel)
-        self.addSubview(weatherLocationDailyTempLabel)
+        self.addSubview(collectionView)
         
         setupConstraints()
+    }
+    
+    private func registerCells() {
+        collectionView.register(WeatherForecastCollectionViewCell.self, forCellWithReuseIdentifier: "weatherForecastCollectionViewCell")
     }
  
     
     private func setupConstraints() {
-        weatherLocationNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLocationNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        weatherLocationNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        weatherLocationNameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        weatherLocationNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        
-        weatherLocationDailyTempLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLocationDailyTempLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        weatherLocationDailyTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        weatherLocationDailyTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        weatherLocationDailyTempLabel.topAnchor.constraint(equalTo: self.weatherLocationNameLabel.topAnchor, constant: 40).isActive = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     }
     
     public func setup(with model: WeatherProtocol) {
         let model = model as! WeatherForecast
-        weatherLocationNameLabel.text = model.timezone
-        weatherLocationDailyTempLabel.text = model.daily[0].weather[0].weatherDescription
+//        weatherLocationNameLabel.text = model.timezone
+//        weatherLocationDailyTempLabel.text = "\(model.daily[0].temp)"
     }
+    
+}
+
+extension WeatherForecastCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
+        cell.backgroundColor = .green
+        cell.test()
+        return cell
+    }
+    
+    
+}
+
+extension WeatherForecastCell: UICollectionViewDelegate {
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300746FB272BC15000B4843C /* WeatherForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300746FA272BC15000B4843C /* WeatherForecastCollectionViewCell.swift */; };
 		300802062717C206005727FE /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300802042717C206005727FE /* WeatherCell.swift */; };
 		303352CA26E97E830068CDEF /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303352C926E97E830068CDEF /* WeatherAPI.swift */; };
 		3043A311272495A40011DE90 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3043A310272495A40011DE90 /* WeatherForecast.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300746FA272BC15000B4843C /* WeatherForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		300802042717C206005727FE /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		303352C926E97E830068CDEF /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		3043A310272495A40011DE90 /* WeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		3055ECC12727AD36000CDF52 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				300746FA272BC15000B4843C /* WeatherForecastCollectionViewCell.swift */,
 				3055ECC22727AD62000CDF52 /* WeatherForecastCell.swift */,
 				300802042717C206005727FE /* WeatherCell.swift */,
 			);
@@ -182,6 +185,7 @@
 				3043A311272495A40011DE90 /* WeatherForecast.swift in Sources */,
 				303352CA26E97E830068CDEF /* WeatherAPI.swift in Sources */,
 				3055ECC027277777000CDF52 /* WeatherProtocol.swift in Sources */,
+				300746FB272BC15000B4843C /* WeatherForecastCollectionViewCell.swift in Sources */,
 				300802062717C206005727FE /* WeatherCell.swift in Sources */,
 				30C68EC226E6A92600D41391 /* AppDelegate.swift in Sources */,
 				30C68ED826E6B7D700D41391 /* EndPoint.swift in Sources */,
