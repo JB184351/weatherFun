@@ -25,10 +25,12 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationNameLabel.textColor = .black
         weatherLocationNameLabel.font = .systemFont(ofSize: 17)
         weatherLocationNameLabel.textAlignment = .left
+        weatherLocationNameLabel.sizeToFit()
         
         weatherLocationDailyTempLabel.textColor = .black
         weatherLocationDailyTempLabel.font = .systemFont(ofSize: 17)
         weatherLocationDailyTempLabel.textAlignment = .left
+        weatherLocationNameLabel.sizeToFit()
     
         self.addSubview(weatherLocationNameLabel)
         self.addSubview(weatherLocationDailyTempLabel)

@@ -29,8 +29,10 @@ class WeatherForecastCell: UICollectionViewCell {
     private func setupUI() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .green
+        collectionView.isScrollEnabled = true
+        collectionView.bounces = false
         
         self.addSubview(collectionView)
         
@@ -60,12 +62,12 @@ class WeatherForecastCell: UICollectionViewCell {
 
 extension WeatherForecastCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
-        cell.backgroundColor = .green
+        cell.backgroundColor = .white
         cell.test()
         return cell
     }
@@ -75,4 +77,10 @@ extension WeatherForecastCell: UICollectionViewDataSource {
 
 extension WeatherForecastCell: UICollectionViewDelegate {
     
+}
+
+extension WeatherForecastCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
 }
