@@ -38,7 +38,6 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
  
-    
     private func setupConstraints() {
         weatherLocationNameLabel.translatesAutoresizingMaskIntoConstraints = false
         weatherLocationNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -49,30 +48,18 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationDailyTempLabel.translatesAutoresizingMaskIntoConstraints = false
         weatherLocationDailyTempLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         weatherLocationDailyTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        weatherLocationDailyTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        weatherLocationDailyTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 20).isActive = true
         weatherLocationDailyTempLabel.topAnchor.constraint(equalTo: self.weatherLocationNameLabel.topAnchor, constant: 40).isActive = true
     }
     
     public func setup(with model: WeatherProtocol) {
-        let model = model as! WeatherForecast
-        weatherLocationNameLabel.text = model.timezone
-        weatherLocationDailyTempLabel.text = "\(model.daily[0].temp)"
-    }
-    
-    public func test() {
-        weatherLocationNameLabel.text =
-        """
-        Yo my name is Justin B that is me WEEEEEEHHH
-        Imma a bee imma bee imama bbbbb immab bee bbbbb
-        Roy, Troy, Croy, Coy, Toy, Loy ok I'm done
-        """
+        let weatherForecastModel = model as! WeatherForecast
+        weatherLocationNameLabel.text = weatherForecastModel.timezone
+        weatherLocationDailyTempLabel.text = "Min Temp: \(weatherForecastModel.daily[0].temp.min) Max Temp: \(weatherForecastModel.daily[0].temp.max)\n"
         
-        weatherLocationDailyTempLabel.text =
-        """
-        More dummy data for you and meeee what can I see fool LOLZZZZZZZ
-        S:DLK;alsjl;asjfal;fjakl;fjas;lfjas;flajflajkl;dfjfkl;ajdfl;asjdf;afa
-        sdf
-        asdfasdf;ajfkl;ajfaskl;fl;sfjal;kfjasl;fja;sljfk
-        """
+        for i in 1..<weatherForecastModel.daily.count {
+            weatherLocationDailyTempLabel.text! +=  "Min Temp: \(weatherForecastModel.daily[i].temp.min) Max Temp: \(weatherForecastModel.daily[i].temp.max)\t"
+        }
+        
     }
 }

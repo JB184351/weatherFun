@@ -9,14 +9,13 @@ import UIKit
 
 class WeatherForecastCell: UICollectionViewCell {
     
-//    private var weatherLocationNameLabel = UILabel()
-//    private var weatherLocationDailyTempLabel = UILabel()
+    private var weatherLocations = [WeatherProtocol]()
     private var collectionView: UICollectionView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        
+        addToWeatherArray()
         collectionView.dataSource = self
         collectionView.delegate = self
         registerCells()
@@ -52,23 +51,30 @@ class WeatherForecastCell: UICollectionViewCell {
         collectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     }
     
-    public func setup(with model: WeatherProtocol) {
-        let model = model as! WeatherForecast
-//        weatherLocationNameLabel.text = model.timezone
-//        weatherLocationDailyTempLabel.text = "\(model.daily[0].temp)"
+    private func addToWeatherArray() {
+        WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
+            self.weatherLocations.append(weatherForecast)
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
+
     
 }
 
 extension WeatherForecastCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return weatherLocations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let weatherLocation = weatherLocations[indexPath.row] as! WeatherForecast
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
         cell.backgroundColor = .white
-        cell.test()
+        cell.setup(with: weatherLocation)
         return cell
     }
     
@@ -79,6 +85,7 @@ extension WeatherForecastCell: UICollectionViewDelegate {
     
 }
 
+//TODO: Look into using compositional layout for this scenario OR selfsizing
 extension WeatherForecastCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)

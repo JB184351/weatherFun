@@ -81,15 +81,6 @@ class ViewController: UIViewController {
     }
     
     private func addToWeatherArray() {
-//        WeatherAPI.getWeatherForCurrentUserLocation { weatherForCurrentLocation in
-//            self.weatherLocations.append(weatherForCurrentLocation)
-//            self.weatherLocations.append(weatherForCurrentLocation)
-//            self.weatherLocations.append(weatherForCurrentLocation)
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadData()
-//            }
-//        }
-        
         WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
             self.weatherLocations.append(weatherForecast)
             
@@ -112,12 +103,9 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let weatherLocation = weatherLocations[indexPath.row]
-        
         // TODO: Possibly use only one cell type otherwise handle cases where different types of cells might exist at the same time
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCell", for: indexPath) as! WeatherForecastCell
         cell.backgroundColor = .blue
-        cell.setup(with: weatherLocation)
         return cell
     }
     
