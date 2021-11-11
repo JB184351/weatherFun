@@ -58,7 +58,7 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationDailyTempLabel.text = "Current: \(weatherForecastModel.temps[0].temp.day)\n"
         
         for i in 1..<weatherForecastModel.temps.count {
-j            weatherLocationDailyTempLabel.text! +=  "Day \(i + 1): \(weatherForecastModel.temps[i].temp.day)\t"
+            weatherLocationDailyTempLabel.text! +=  "Day \(i + 1): \(weatherForecastModel.temps[i].temp.day)\t"
         }
         
         print(weatherLocationDailyTempLabel)
