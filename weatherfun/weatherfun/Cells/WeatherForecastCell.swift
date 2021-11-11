@@ -7,15 +7,19 @@
 
 import UIKit
 
+struct TempModel {
+    var timezone: String
+    var temps: [Daily]
+}
+
 class WeatherForecastCell: UICollectionViewCell {
     
-    private var weatherLocations = [WeatherProtocol]()
+    private var weatherTemps = [TempModel]()
     private var collectionView: UICollectionView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        addToWeatherArray()
         collectionView.dataSource = self
         collectionView.delegate = self
         registerCells()
@@ -51,14 +55,9 @@ class WeatherForecastCell: UICollectionViewCell {
         collectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     }
     
-    private func addToWeatherArray() {
-        WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
-            self.weatherLocations.append(weatherForecast)
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+    public func setup(with model: TempModel) {
+        weatherTemps.append(model)
+        collectionView.reloadData()
     }
 
     
@@ -66,15 +65,15 @@ class WeatherForecastCell: UICollectionViewCell {
 
 extension WeatherForecastCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherLocations.count
+        return weatherTemps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let weatherLocation = weatherLocations[indexPath.row] as! WeatherForecast
+        let weatherTemp = weatherTemps[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
         cell.backgroundColor = .white
-        cell.setup(with: weatherLocation)
+        cell.setup(with: weatherTemp)
         return cell
     }
     

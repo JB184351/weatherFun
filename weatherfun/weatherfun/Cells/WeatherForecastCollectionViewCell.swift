@@ -52,14 +52,15 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationDailyTempLabel.topAnchor.constraint(equalTo: self.weatherLocationNameLabel.topAnchor, constant: 40).isActive = true
     }
     
-    public func setup(with model: WeatherProtocol) {
-        let weatherForecastModel = model as! WeatherForecast
+    public func setup(with model: TempModel) {
+        let weatherForecastModel = model
         weatherLocationNameLabel.text = weatherForecastModel.timezone
-        weatherLocationDailyTempLabel.text = "Min Temp: \(weatherForecastModel.daily[0].temp.min) Max Temp: \(weatherForecastModel.daily[0].temp.max)\n"
+        weatherLocationDailyTempLabel.text = "Current: \(weatherForecastModel.temps[0].temp.day)\n"
         
-        for i in 1..<weatherForecastModel.daily.count {
-            weatherLocationDailyTempLabel.text! +=  "Min Temp: \(weatherForecastModel.daily[i].temp.min) Max Temp: \(weatherForecastModel.daily[i].temp.max)\t"
+        for i in 1..<weatherForecastModel.temps.count {
+j            weatherLocationDailyTempLabel.text! +=  "Day \(i + 1): \(weatherForecastModel.temps[i].temp.day)\t"
         }
         
+        print(weatherLocationDailyTempLabel)
     }
 }

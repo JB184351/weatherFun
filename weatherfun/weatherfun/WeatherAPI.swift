@@ -20,7 +20,7 @@ class WeatherAPI {
         }
     }
     
-    public static func getWeatherForCurrentUerLocationWithCoordinates(completionBlock: @escaping (WeatherProtocol) -> (Void)) {
+    public static func getWeatherForCurrentUerLocationWithCoordinates(completionBlock: @escaping (WeatherForecast) -> (Void)) {
         LocationManager.shared.getUserLocation { location in
             let latitudeText = String(format: "%f", location?.location?.coordinate.latitude as! CVarArg)
             let longitudeText = String(format: "%f", location?.location?.coordinate.longitude as! CVarArg)
@@ -31,7 +31,7 @@ class WeatherAPI {
         }
     }
     
-    public static func getWeatherForecastForCurrentUserLocation(completionBlock: @escaping (WeatherProtocol) -> (Void)) {
+    public static func getWeatherForecastForCurrentUserLocation(completionBlock: @escaping (WeatherForecast) -> (Void)) {
         LocationManager.shared.getUserLocation { location in
             let latitudeText = String(format: "%f", location?.location?.coordinate.latitude as! CVarArg)
             let longitudeText = String(format: "%f", location?.location?.coordinate.longitude as! CVarArg)
@@ -42,7 +42,7 @@ class WeatherAPI {
         }
     }
     
-    private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (WeatherProtocol) -> (Void)) {
+    private static func load(with endPoint: EndPoint, and endPointURL: WeatherURL, completionBlock: @escaping (WeatherForecast) -> (Void)) {
         if let url = endPointURL.url {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
@@ -51,10 +51,11 @@ class WeatherAPI {
                         switch endPoint {
                         case .oneLocation:
                             let parsedJSON = try jsonDecoder.decode(Weather.self, from: data)
-                            completionBlock(parsedJSON)
+                            //Reason for WweatherForeCast Protocol here
+//                            completionBlock(parsedJSON)
                         case .coordinates:
                             let parsedJSON = try jsonDecoder.decode(Weather.self, from: data)
-                            completionBlock(parsedJSON)
+//                            completionBlock(parsedJSON)
                         case .daily:
                             let parsedJSON = try jsonDecoder.decode(WeatherForecast.self, from: data)
                             completionBlock(parsedJSON)

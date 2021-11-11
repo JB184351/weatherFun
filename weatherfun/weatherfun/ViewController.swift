@@ -10,11 +10,11 @@ import UIKit
 class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
-    private var weatherLocations = [WeatherProtocol]()
+    private var weatherForecasts = [WeatherForecast]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        weatherLocations.removeAll()
+        weatherForecasts.removeAll()
         addToWeatherArray()
         setUpCollectionView()
         registerCells()
@@ -82,8 +82,8 @@ class ViewController: UIViewController {
     
     private func addToWeatherArray() {
         WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
-            self.weatherLocations.append(weatherForecast)
-            
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -99,13 +99,16 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherLocations.count
+        return weatherForecasts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO: Possibly use only one cell type otherwise handle cases where different types of cells might exist at the same time
+        let weatherForecast = weatherForecasts[indexPath.row]
+        let tempModel = TempModel(timezone: weatherForecast.timezone, temps: weatherForecast.daily)
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCell", for: indexPath) as! WeatherForecastCell
-        cell.backgroundColor = .blue
+        cell.setup(with: tempModel)
         return cell
     }
     

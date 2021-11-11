@@ -59,8 +59,8 @@
 		3055ECC12727AD36000CDF52 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				300746FA272BC15000B4843C /* WeatherForecastCollectionViewCell.swift */,
 				3055ECC22727AD62000CDF52 /* WeatherForecastCell.swift */,
+				300746FA272BC15000B4843C /* WeatherForecastCollectionViewCell.swift */,
 				300802042717C206005727FE /* WeatherCell.swift */,
 			);
 			path = Cells;
