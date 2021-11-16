@@ -7,14 +7,13 @@
 
 import UIKit
 
-struct TempModel {
-    var timezone: String
-    var temps: [Daily]
-}
+
 
 class WeatherForecastCell: UICollectionViewCell {
     
-    private var weatherTemps = [TempModel]()
+    private var weatherTemps = [Double]()
+    private var weatherLocationNameLabel = UILabel()
+    private var weatherCurrentTempLabel = UILabel()
     private var collectionView: UICollectionView!
     
     override init(frame: CGRect) {
@@ -37,7 +36,19 @@ class WeatherForecastCell: UICollectionViewCell {
         collectionView.isScrollEnabled = true
         collectionView.bounces = false
         
+        weatherLocationNameLabel.textColor = .black
+        weatherLocationNameLabel.font = .systemFont(ofSize: 17)
+        weatherLocationNameLabel.textAlignment = .left
+        weatherLocationNameLabel.sizeToFit()
+        
+        weatherCurrentTempLabel.textColor = .black
+        weatherCurrentTempLabel.font = .systemFont(ofSize: 17)
+        weatherCurrentTempLabel.textAlignment = .left
+        weatherCurrentTempLabel.sizeToFit()
+    
         self.addSubview(collectionView)
+        self.addSubview(weatherLocationNameLabel)
+        self.addSubview(weatherCurrentTempLabel)
         
         setupConstraints()
     }
@@ -48,15 +59,29 @@ class WeatherForecastCell: UICollectionViewCell {
  
     
     private func setupConstraints() {
+        weatherLocationNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        weatherLocationNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        weatherLocationNameLabel.trailingAnchor.constraint(equalTo: self.weatherCurrentTempLabel.leadingAnchor).isActive = true
+        weatherLocationNameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
+        weatherLocationNameLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        
+        weatherCurrentTempLabel.translatesAutoresizingMaskIntoConstraints = false
+        weatherCurrentTempLabel.leadingAnchor.constraint(equalTo: self.weatherLocationNameLabel.trailingAnchor, constant: -10).isActive = true
+        weatherCurrentTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        weatherCurrentTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
+        weatherCurrentTempLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.bounds.height / 2).isActive = true
     }
     
     public func setup(with model: TempModel) {
-        weatherTemps.append(model)
+        weatherTemps = model.temps
+        weatherLocationNameLabel.text = model.name
+        weatherCurrentTempLabel.text = "\(model.currentTemp)"
         collectionView.reloadData()
     }
 
@@ -87,6 +112,6 @@ extension WeatherForecastCell: UICollectionViewDelegate {
 //TODO: Look into using compositional layout for this scenario OR selfsizing
 extension WeatherForecastCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        return CGSize(width: 50, height: collectionView.bounds.height)
     }
 }

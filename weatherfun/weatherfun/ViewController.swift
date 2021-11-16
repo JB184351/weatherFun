@@ -7,17 +7,26 @@
 
 import UIKit
 
+struct TempModel {
+    var name: String
+    var currentTemp: Double
+    var temps: [Double]
+}
+
 class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
-    private var weatherForecasts = [WeatherForecast]()
+    private var weatherForecasts = [TempModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherForecasts.removeAll()
-        addToWeatherArray()
         setUpCollectionView()
         registerCells()
+        
+        weatherForecasts.append(TempModel(name: "Las Vegas", currentTemp: 50.0, temps: [50, 60, 100, 70, 80, 100, 25]))
+        weatherForecasts.append(TempModel(name: "Utah", currentTemp: 50.0, temps: [50, 60, 100, 30, 40, 60, 28.5]))
+        weatherForecasts.append(TempModel(name: "Spain", currentTemp: 50.0, temps: [50, 60, 100, 100.5, 56.2, 65, 85]))
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -80,16 +89,6 @@ class ViewController: UIViewController {
         collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
     }
     
-    private func addToWeatherArray() {
-        WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
-            self.weatherForecasts.append(weatherForecast)
-            self.weatherForecasts.append(weatherForecast)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    
     private func registerCells() {
         collectionView.register(WeatherCell.self, forCellWithReuseIdentifier: "weatherCell")
         collectionView.register(WeatherForecastCell.self, forCellWithReuseIdentifier: "weatherForecastCell")
@@ -105,16 +104,17 @@ extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO: Possibly use only one cell type otherwise handle cases where different types of cells might exist at the same time
         let weatherForecast = weatherForecasts[indexPath.row]
-        let tempModel = TempModel(timezone: weatherForecast.timezone, temps: weatherForecast.daily)
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherForecastCell", for: indexPath) as! WeatherForecastCell
-        cell.setup(with: tempModel)
+        cell.backgroundColor = .systemBlue
+        cell.setup(with: weatherForecast)
         return cell
     }
     
 }
 
 extension ViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 2)
+    }
 }
 

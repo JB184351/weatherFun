@@ -10,7 +10,6 @@ import UIKit
 class WeatherForecastCollectionViewCell: UICollectionViewCell {
     
     private var weatherLocationNameLabel = UILabel()
-    private var weatherLocationDailyTempLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +25,8 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationNameLabel.font = .systemFont(ofSize: 17)
         weatherLocationNameLabel.textAlignment = .left
         weatherLocationNameLabel.sizeToFit()
-        
-        weatherLocationDailyTempLabel.textColor = .black
-        weatherLocationDailyTempLabel.font = .systemFont(ofSize: 17)
-        weatherLocationDailyTempLabel.textAlignment = .left
-        weatherLocationNameLabel.sizeToFit()
     
         self.addSubview(weatherLocationNameLabel)
-        self.addSubview(weatherLocationDailyTempLabel)
         
         setupConstraints()
     }
@@ -44,23 +37,9 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherLocationNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         weatherLocationNameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         weatherLocationNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        
-        weatherLocationDailyTempLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLocationDailyTempLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        weatherLocationDailyTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        weatherLocationDailyTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 20).isActive = true
-        weatherLocationDailyTempLabel.topAnchor.constraint(equalTo: self.weatherLocationNameLabel.topAnchor, constant: 40).isActive = true
     }
     
-    public func setup(with model: TempModel) {
-        let weatherForecastModel = model
-        weatherLocationNameLabel.text = weatherForecastModel.timezone
-        weatherLocationDailyTempLabel.text = "Current: \(weatherForecastModel.temps[0].temp.day)\n"
-        
-        for i in 1..<weatherForecastModel.temps.count {
-            weatherLocationDailyTempLabel.text! +=  "Day \(i + 1): \(weatherForecastModel.temps[i].temp.day)\t"
-        }
-        
-        print(weatherLocationDailyTempLabel)
+    public func setup(with model: Double) {
+        weatherLocationNameLabel.text = "\(model)"
     }
 }
