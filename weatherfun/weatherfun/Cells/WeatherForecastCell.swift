@@ -34,6 +34,7 @@ class WeatherForecastCell: UICollectionViewCell {
         layout.minimumLineSpacing = 0
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .white
         collectionView.bounces = false
         
         weatherLocationNameLabel.textColor = .black
@@ -112,6 +113,10 @@ extension WeatherForecastCell: UICollectionViewDelegate {
 //TODO: Look into using compositional layout for this scenario OR selfsizing
 extension WeatherForecastCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 50, height: collectionView.bounds.height)
+        
+        let temp = weatherTemps[indexPath.row]
+        let tempString = "\(temp)"
+        
+        return CGSize(width: tempString.size(withAttributes: nil).width + 25, height: collectionView.bounds.height)
     }
 }
