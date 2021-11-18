@@ -79,10 +79,13 @@ class WeatherForecastCell: UICollectionViewCell {
         collectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.bounds.height / 2).isActive = true
     }
     
-    public func setup(with model: TempModel) {
-        weatherTemps = model.temps
-        weatherLocationNameLabel.text = model.name
-        weatherCurrentTempLabel.text = "\(model.currentTemp)"
+    public func setup(with model: WeatherForecast) {
+        for temp in model.daily {
+            weatherTemps.append(temp.temp.day)
+        }
+        
+        weatherLocationNameLabel.text = model.timezone
+        weatherCurrentTempLabel.text = "\(weatherTemps[0])"
         collectionView.reloadData()
     }
 

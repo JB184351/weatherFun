@@ -16,17 +16,13 @@ struct TempModel {
 class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
-    private var weatherForecasts = [TempModel]()
+    private var weatherForecasts = [WeatherForecast]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        weatherForecasts.removeAll()
+        addWeatherForecastData()
         setUpCollectionView()
         registerCells()
-        
-        weatherForecasts.append(TempModel(name: "Las Vegas", currentTemp: 50.0, temps: [50, 60, 100, 70, 80, 100, 25]))
-        weatherForecasts.append(TempModel(name: "Utah", currentTemp: 50.0, temps: [50, 60, 100, 30, 40, 60, 28.5]))
-        weatherForecasts.append(TempModel(name: "Spain", currentTemp: 50.0, temps: [50, 60, 100, 100.5, 56.2, 65, 85]))
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -43,39 +39,39 @@ class ViewController: UIViewController {
     
     private func generateLayout() -> UICollectionViewLayout {
         let fullItem = NSCollectionLayoutItem(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(2/3)))
-
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(2/3)))
+        
         fullItem.contentInsets = NSDirectionalEdgeInsets(
-          top: 2,
-          leading: 2,
-          bottom: 2,
-          trailing: 2)
+            top: 2,
+            leading: 2,
+            bottom: 2,
+            trailing: 2)
         
         let doubleItem = NSCollectionLayoutItem(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/2),
-            heightDimension: .fractionalHeight(1.0)))
-
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/2),
+                heightDimension: .fractionalHeight(1.0)))
+        
         doubleItem.contentInsets = NSDirectionalEdgeInsets(
-          top: 2,
-          leading: 2,
-          bottom: 2,
-          trailing: 2)
+            top: 2,
+            leading: 2,
+            bottom: 2,
+            trailing: 2)
         
         let doubleGroup = NSCollectionLayoutGroup.horizontal(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(1/2)),
-          subitems: [doubleItem, doubleItem])
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(1/2)),
+            subitems: [doubleItem, doubleItem])
         
         let nestedGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(5/3)), subitems: [fullItem, doubleGroup])
         
         let section = NSCollectionLayoutSection(group: nestedGroup)
-
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -92,6 +88,22 @@ class ViewController: UIViewController {
     private func registerCells() {
         collectionView.register(WeatherCell.self, forCellWithReuseIdentifier: "weatherCell")
         collectionView.register(WeatherForecastCell.self, forCellWithReuseIdentifier: "weatherForecastCell")
+    }
+    
+    private func addWeatherForecastData() {
+        WeatherAPI.getWeatherForecastForCurrentUserLocation { weatherForecast in
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            self.weatherForecasts.append(weatherForecast)
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
 }
