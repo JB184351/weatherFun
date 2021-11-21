@@ -67,8 +67,8 @@ class WeatherForecastCell: UICollectionViewCell {
         weatherLocationNameLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
         weatherCurrentTempLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherCurrentTempLabel.leadingAnchor.constraint(equalTo: self.weatherLocationNameLabel.trailingAnchor, constant: -10).isActive = true
-        weatherCurrentTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        weatherCurrentTempLabel.leadingAnchor.constraint(equalTo: self.weatherLocationNameLabel.trailingAnchor).isActive = true
+        weatherCurrentTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
         weatherCurrentTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
         weatherCurrentTempLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
