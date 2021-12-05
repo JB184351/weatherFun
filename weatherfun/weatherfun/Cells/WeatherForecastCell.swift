@@ -7,13 +7,13 @@
 
 import UIKit
 
-
-
 class WeatherForecastCell: UICollectionViewCell {
     
     private var weatherTemps = [Double]()
     private var weatherLocationNameLabel = UILabel()
     private var weatherCurrentTempLabel = UILabel()
+    private var weatherForeCastStackView = UIStackView()
+    private var locationInfoStackView = UIStackView()
     private var collectionView: UICollectionView!
     
     override init(frame: CGRect) {
@@ -29,6 +29,14 @@ class WeatherForecastCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        weatherForeCastStackView.axis = .vertical
+        weatherForeCastStackView.alignment = .fill
+        weatherForeCastStackView.distribution = .fillEqually
+        
+        locationInfoStackView.axis = .horizontal
+        locationInfoStackView.alignment = .fill
+        locationInfoStackView.distribution = .fillProportionally
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
@@ -47,9 +55,12 @@ class WeatherForecastCell: UICollectionViewCell {
         weatherCurrentTempLabel.textAlignment = .left
         weatherCurrentTempLabel.sizeToFit()
     
-        self.addSubview(collectionView)
-        self.addSubview(weatherLocationNameLabel)
-        self.addSubview(weatherCurrentTempLabel)
+        self.addSubview(weatherForeCastStackView)
+        self.weatherForeCastStackView.addArrangedSubview(locationInfoStackView)
+        self.weatherForeCastStackView.addArrangedSubview(collectionView)
+        
+        self.locationInfoStackView.addArrangedSubview(weatherLocationNameLabel)
+        self.locationInfoStackView.addArrangedSubview(weatherCurrentTempLabel)
         
         setupConstraints()
     }
@@ -60,23 +71,11 @@ class WeatherForecastCell: UICollectionViewCell {
  
     
     private func setupConstraints() {
-        weatherLocationNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLocationNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        weatherLocationNameLabel.trailingAnchor.constraint(equalTo: self.weatherCurrentTempLabel.leadingAnchor).isActive = true
-        weatherLocationNameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
-        weatherLocationNameLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        
-        weatherCurrentTempLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherCurrentTempLabel.leadingAnchor.constraint(equalTo: self.weatherLocationNameLabel.trailingAnchor).isActive = true
-        weatherCurrentTempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        weatherCurrentTempLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
-        weatherCurrentTempLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.bounds.height / 2).isActive = true
+        weatherForeCastStackView.translatesAutoresizingMaskIntoConstraints = false
+        weatherForeCastStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        weatherForeCastStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        weatherForeCastStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        weatherForeCastStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     }
     
     public func setup(with model: WeatherForecast) {
@@ -113,7 +112,6 @@ extension WeatherForecastCell: UICollectionViewDelegate {
     
 }
 
-//TODO: Look into using compositional layout for this scenario OR selfsizing
 extension WeatherForecastCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

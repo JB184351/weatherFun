@@ -39,10 +39,10 @@
 		30C68ECA26E6A92800D41391 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30C68ECD26E6A92800D41391 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30C68ECF26E6A92800D41391 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30C68ED626E6AFF700D41391 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		30C68ED726E6B7D700D41391 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		30C68ED926E6B81C00D41391 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		30C68EDB26E6BF5600D41391 /* WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
+		C2AB1053274D2F510062F289 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +85,9 @@
 		30C68EC026E6A92600D41391 /* weatherfun */ = {
 			isa = PBXGroup;
 			children = (
+				C2AB1053274D2F510062F289 /* Config.xcconfig */,
 				30C68EC126E6A92600D41391 /* AppDelegate.swift */,
 				30C68EC326E6A92600D41391 /* SceneDelegate.swift */,
-				30C68ED626E6AFF700D41391 /* Config.xcconfig */,
 				30C68ED526E6A96200D41391 /* Model */,
 				30C68EC526E6A92600D41391 /* ViewController.swift */,
 				3055ECC12727AD36000CDF52 /* Cells */,
@@ -213,7 +213,6 @@
 /* Begin XCBuildConfiguration section */
 		30C68ED026E6A92800D41391 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30C68ED626E6AFF700D41391 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

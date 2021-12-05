@@ -33,7 +33,7 @@ struct WeatherURL {
     static func createURL(with endPoint: EndPoint, location: String? = "Las Vegas", coordinates: [String]?)  -> WeatherURL? {
         guard let privateKey = Bundle.main.infoDictionary?["API_KEY"] as? String else { return nil }
         
-        var cleanedPrivateKey = privateKey
+        var cleanedPrivateKey = "12fc89b1e055122c743280f036f7d734"
         
         cleanedPrivateKey.removeAll { char in
             char == "\""
