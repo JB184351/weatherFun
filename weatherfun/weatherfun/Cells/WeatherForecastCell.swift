@@ -35,7 +35,7 @@ class WeatherForecastCell: UICollectionViewCell {
         
         locationInfoStackView.axis = .horizontal
         locationInfoStackView.alignment = .fill
-        locationInfoStackView.distribution = .fillProportionally
+        locationInfoStackView.distribution = .fill
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -48,12 +48,14 @@ class WeatherForecastCell: UICollectionViewCell {
         weatherLocationNameLabel.textColor = .black
         weatherLocationNameLabel.font = .systemFont(ofSize: 17)
         weatherLocationNameLabel.textAlignment = .left
-        weatherLocationNameLabel.sizeToFit()
-        
+        weatherLocationNameLabel.numberOfLines = 2
+        weatherLocationNameLabel.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+
         weatherCurrentTempLabel.textColor = .black
         weatherCurrentTempLabel.font = .systemFont(ofSize: 17)
-        weatherCurrentTempLabel.textAlignment = .left
-        weatherCurrentTempLabel.sizeToFit()
+        weatherCurrentTempLabel.textAlignment = .right
+        weatherCurrentTempLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
     
         self.addSubview(weatherForeCastStackView)
         self.weatherForeCastStackView.addArrangedSubview(locationInfoStackView)
@@ -68,7 +70,6 @@ class WeatherForecastCell: UICollectionViewCell {
     private func registerCells() {
         collectionView.register(WeatherForecastCollectionViewCell.self, forCellWithReuseIdentifier: "weatherForecastCollectionViewCell")
     }
- 
     
     private func setupConstraints() {
         weatherForeCastStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +89,6 @@ class WeatherForecastCell: UICollectionViewCell {
         collectionView.reloadData()
     }
 
-    
 }
 
 extension WeatherForecastCell: UICollectionViewDataSource {
@@ -104,8 +104,7 @@ extension WeatherForecastCell: UICollectionViewDataSource {
         cell.setup(with: weatherTemp)
         return cell
     }
-    
-    
+        
 }
 
 extension WeatherForecastCell: UICollectionViewDelegate {

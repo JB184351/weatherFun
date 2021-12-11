@@ -31,14 +31,9 @@ struct WeatherURL {
     
     // Gave the location parmater a default locattion name
     static func createURL(with endPoint: EndPoint, location: String? = "Las Vegas", coordinates: [String]?)  -> WeatherURL? {
-        guard let privateKey = Bundle.main.infoDictionary?["API_KEY"] as? String else { return nil }
-        
-        var cleanedPrivateKey = "12fc89b1e055122c743280f036f7d734"
-        
-        cleanedPrivateKey.removeAll { char in
-            char == "\""
-        }
-        
+        // Couldn't get this working the way I had it before on my personal computer (which is getting fixed) so I just let this as is.
+        let privateKey = "12fc89b1e055122c743280f036f7d734"
+
         var queryItems = [URLQueryItem]()
         
         switch endPoint {
@@ -53,7 +48,7 @@ struct WeatherURL {
             queryItems.append(URLQueryItem(name: "exclude", value: "current,minutely,hourly,alerts"))
         }
         
-        let apiKeyQueryItem = URLQueryItem(name: "appid", value: cleanedPrivateKey)
+        let apiKeyQueryItem = URLQueryItem(name: "appid", value: privateKey)
         queryItems.append(apiKeyQueryItem)
         
         switch endPoint {

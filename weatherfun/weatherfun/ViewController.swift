@@ -105,10 +105,10 @@ class ViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension ViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return weatherForecasts.count
     }
@@ -121,10 +121,10 @@ extension ViewController: UICollectionViewDataSource {
         cell.setup(with: weatherForecast)
         return cell
     }
-    
 }
 
 extension ViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 2)
     }
