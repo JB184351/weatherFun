@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  weatherfun
+//
+//  Created by Justin Bengtson on 11/23/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = "12fc89b1e055122c743280f036f7d734"
